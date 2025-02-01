@@ -3,11 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  _id: Schema.Types.ObjectId,
   email: {
     type: String,
     required: true,
@@ -17,9 +13,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  token: {
+    type: String,
+    required: false,
   },
 });
 
