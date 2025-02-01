@@ -1,15 +1,22 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import User from '../models/User.js'; // Assume a User model exists
+import db from '../config/db.js';
+
 const router = express.Router();
-const User = require('../models/User'); // Assume a User model exists
 
 // Login route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   // 1. Find user
-  const user = await User.findOne({ email });
+  let user;
+  try {
+    user = await User.findOne({ email });
+  } catch (error) {
+    return res.status(500).send('Server error');
+  }
   if (!user) return res.status(400).send('Invalid credentials');
 
   // 2. Validate password
@@ -26,4 +33,4 @@ router.post('/login', async (req, res) => {
   res.json({ token });
 });
 
-module.exports = router;
+export default router;

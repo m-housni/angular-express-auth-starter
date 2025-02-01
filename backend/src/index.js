@@ -1,6 +1,6 @@
-const express = require("express");
-const authRouter = require("./routes/auth");
-const cors = require("cors");
+import express from "express";
+import authRouter from "./routes/auth.js";
+import cors from "cors";
 
 const app = express();
 const port = process.env.PORT || 3000;
